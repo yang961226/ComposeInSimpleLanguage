@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".two.TwoActivity" />
+        <activity android:name=".three.ThreeActivity" />
     </application>
 
 </manifest>
