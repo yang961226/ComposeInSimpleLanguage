@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -39,7 +40,7 @@ fun ChapterTwoScreen(onClickNext: () -> Unit = {}) {
     ChapterBackground(
         modifier = commonChapterModifier,
         title = "第二节-remember",
-        desc = "本案例可以让你体验remember与MutableState的简单使用。\n观察Tag为「临时测试」的Log，只有num发生变化的时候，numString才会重新生成，避免每次重组都要生成一次",
+        desc = "本案例可以让你体验remember的使用。\n观察Tag为「临时测试」的Log，只有num发生变化的时候，numString才会重新生成，避免每次重组都要生成一次",
         onClickNext = onClickNext
     ) {
 
@@ -52,13 +53,24 @@ fun ChapterTwoScreen(onClickNext: () -> Unit = {}) {
         ) {
             var num by remember { mutableStateOf(0) }
             val numString = remember(num) {
-                Log.d("临时测试", "我要重新生成值了")
+                Log.d("临时测试", "我要重新生成数字值了")
                 "我是数字$num"
             }
-            Button(onClick = { num++ }) {
-                SideEffect { Log.d("临时测试", "Button进入重组") }
-                Text(text = numString)
+            val unchangedString = remember {
+                Log.d("临时测试", "我要生成不变的值了")
+                "我是不变的"
             }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(onClick = { num++ }) {
+                    Text(unchangedString)
+                }
+                Button(onClick = { num++ }) {
+                    Text(text = numString)
+                }
+            }
+
         }
     }
 }
