@@ -59,9 +59,7 @@ fun ChapterBackground(
         Button(onClick = onClickNext, modifier = Modifier.align(Alignment.TopEnd)) {
             Text("下一章", fontSize = 15.sp)
         }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column {
             Text(text = title, fontSize = 30.sp, fontWeight = FontWeight.Bold)
             Text(text = desc, fontSize = 20.sp)
             Spacer(Modifier.height(20.dp))

@@ -9,8 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -39,22 +37,17 @@ class OneActivity : ComponentActivity() {
 
 @Composable
 fun ChapterOneScreen(onClickNext: () -> Unit = {}) {
-    var blockOneNum by remember { mutableStateOf(0) }
-    var blockTwoNum by remember { mutableStateOf(0) }
-    val state = rememberScrollState()
     ChapterBackground(
         modifier = commonChapterModifier,
-        title = "智能重组",
-        desc = "本案例可以让你清楚得体验到智能重组的高效性",
+        title = "第一节-智能重组",
+        desc = "本案例可以让你清楚得体验到智能重组的高效性(请查看Tag为「临时测试」的Log)",
         onClickNext = onClickNext
     ) {
-
+        var blockOneNum by remember { mutableStateOf(0) }
+        var blockTwoNum by remember { mutableStateOf(0) }
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(state),
+            modifier = Modifier.fillMaxSize()
         ) {
-
             ComposeBlock(
                 num = blockOneNum,
                 logTag = "方块1",
