@@ -1,5 +1,6 @@
 package com.sundayting.composeinsimplelanguage.three
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.sundayting.composeinsimplelanguage.four.FourActivity
 import com.sundayting.composeinsimplelanguage.ui.ChapterBackground
 import com.sundayting.composeinsimplelanguage.ui.commonChapterModifier
 
@@ -28,7 +30,9 @@ class ThreeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ChapterThreeScreen()
+            ChapterThreeScreen(onClickNext = {
+                startActivity(Intent(this, FourActivity::class.java))
+            })
         }
     }
 
@@ -50,6 +54,9 @@ fun ChapterThreeScreen(onClickNext: () -> Unit = {}) {
             contentAlignment = Alignment.Center
         ) {
             Column {
+                /**
+                 * 可被观察的变量，当它发生变化的时候，所有使用它的重组作用域都会重组
+                 */
                 var name by remember { mutableStateOf("") }
                 if (name.isNotEmpty()) {
                     Text(
