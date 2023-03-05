@@ -1,5 +1,6 @@
 package com.sundayting.composeinsimplelanguage.one
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.sundayting.composeinsimplelanguage.two.TwoActivity
 import com.sundayting.composeinsimplelanguage.ui.ChapterBackground
 import com.sundayting.composeinsimplelanguage.ui.commonChapterModifier
 
@@ -28,7 +30,7 @@ class OneActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ChapterOneScreen(onClickNext = {
-
+                startActivity(Intent(this, TwoActivity::class.java))
             })
         }
     }
