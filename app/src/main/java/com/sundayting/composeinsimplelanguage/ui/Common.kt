@@ -51,14 +51,17 @@ fun ChapterBackground(
     title: String,
     desc: String,
     modifier: Modifier = Modifier,
-    onClickNext: () -> Unit = {},
+    onClickNext: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
 
     Box(modifier = modifier) {
-        Button(onClick = onClickNext, modifier = Modifier.align(Alignment.TopEnd)) {
-            Text("下一章", fontSize = 15.sp)
+        if (onClickNext != null) {
+            Button(onClick = onClickNext, modifier = Modifier.align(Alignment.TopEnd)) {
+                Text("下一章", fontSize = 15.sp)
+            }
         }
+
         Column {
             Text(text = title, fontSize = 30.sp, fontWeight = FontWeight.Bold)
             Text(text = desc, fontSize = 20.sp)

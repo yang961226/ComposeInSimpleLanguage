@@ -1,5 +1,6 @@
 package com.sundayting.composeinsimplelanguage.four
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sundayting.composeinsimplelanguage.five.FiveActivity
 import com.sundayting.composeinsimplelanguage.ui.ChapterBackground
 import com.sundayting.composeinsimplelanguage.ui.commonChapterModifier
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +59,9 @@ class FourActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ChapterFourScreen(
-                onClickNext = {}
+                onClickNext = {
+                    startActivity(Intent(this, FiveActivity::class.java))
+                }
             )
         }
     }
