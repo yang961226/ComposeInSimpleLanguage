@@ -20,7 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -56,7 +58,7 @@ fun ChapterFiveScreen() {
     ChapterBackground(
         modifier = commonChapterModifier,
         title = "第五节-SideEffect",
-        desc = "本案例提供了3种不同的可组合函数，分别是带状态的可组合函数，还有2种是状态提升的可组合函数，你可以通过对比来感知状态提升的作用性",
+        desc = "本案例提供了最常用的5种SideEffect的使用方式和适配场景",
     ) {
         val scrollState = rememberScrollState()
         Column(
@@ -65,7 +67,10 @@ fun ChapterFiveScreen() {
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EachEffectContainer(title = "LaunchedEffect", color = Color.Cyan.copy(alpha = 0.1f)) {
+            EachEffectContainer(
+                title = "LaunchedEffect\n适合用于在可组合函数中启动协程",
+                color = Color.Cyan.copy(alpha = 0.1f)
+            ) {
                 var countDown by remember { mutableStateOf(0) }
                 var changedFlag by remember { mutableStateOf(false) }
                 //当changedFlag变化的时候重启协程
@@ -94,7 +99,7 @@ fun ChapterFiveScreen() {
             }
             Divider()
             EachEffectContainer(
-                title = "rememberCoroutineScope",
+                title = "rememberCoroutineScope\n适合用于在非组合作用域中启动协程",
                 color = Color.Yellow.copy(alpha = 0.1f)
             ) {
 
@@ -122,7 +127,7 @@ fun ChapterFiveScreen() {
             }
             Divider()
             EachEffectContainer(
-                title = "rememberUpdatedState",
+                title = "rememberUpdatedState\n用于在效应中捕获某个值，但如果该值发生变化，不希望效应重启",
                 color = Color.Red.copy(alpha = 0.1f)
             ) {
                 var show by remember { mutableStateOf(false) }
@@ -144,10 +149,33 @@ fun ChapterFiveScreen() {
             }
             Divider()
             EachEffectContainer(
-                title = "DisposableEffect",
+                title = "DisposableEffect\n用于需要在键发生变化或可组合项退出组合后进行清理的附带效应",
                 color = Color.Green.copy(alpha = 0.1f)
             ) {
                 DisposableEffectWidget()
+            }
+            Divider()
+            EachEffectContainer(
+                title = "derivedStateOf\n将一个或多个状态对象转换为其他状态(一般配合mutableStateListOf等使用)",
+                color = Color.Magenta.copy(alpha = 0.1f)
+            ) {
+
+                val list = remember { mutableStateListOf<String>() }
+                val listSizeString by remember {
+                    derivedStateOf { "元素大小：${list.size}" }
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(onClick = { list.add("添加") }) {
+                        Text("点击添加一个元素")
+                    }
+                    Spacer(modifier = Modifier.size(10.dp))
+                    Text(listSizeString, fontSize = 20.sp)
+                }
+
+
             }
         }
     }
